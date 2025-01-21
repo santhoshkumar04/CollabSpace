@@ -1,12 +1,15 @@
 import "dotenv/config";
-import express, { NextFunction, Request, Response } from "express";
+import "./config/passport.config";
 import cors from "cors";
 import session from "cookie-session";
-import { config } from "./config/app.config";
+import passport from "passport";
 import connectDatabase from "./config/database.config";
+import authRoutes from "./routes/auth.route";
+import express, { NextFunction, Request, Response } from "express";
+import { config } from "./config/app.config";
 import { HTTP_STATUS } from "./config/http.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
-import { asyncHandler } from "./middlewares/asyncHandler.middlware";
+import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { BadRequestException } from "./utils/appError";
 import { ErrorCodeEnum } from "./enums/error-code.enum";
 
@@ -27,7 +30,12 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(cors({ origin: config.FRONTEND_ORIGIN, credentials: true }));
+
+app.use(`${BASE_PATH}/auth`, authRoutes);
 
 app.get(
   "/",
