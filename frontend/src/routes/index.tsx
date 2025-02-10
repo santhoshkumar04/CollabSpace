@@ -4,14 +4,20 @@ import AuthRoute from "./auth.route";
 import ProtectedRoute from "./protected.route";
 import AppLayout from "@/layout/app.layout";
 import NotFound from "@/page/error/NotFound";
-import { authenticationRoutePaths } from "./common/routes";
+import {
+  authenticationRoutePaths,
+  baseRoutePath,
+  protectedRoutePaths,
+} from "./common/routes";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<BaseLayout />}>
-          <Route path="" />
+          {baseRoutePath.map((route, i) => (
+            <Route key={i} path={route.path} element={route.element} />
+          ))}
         </Route>
 
         <Route path="/" element={<AuthRoute />}>
@@ -24,7 +30,9 @@ export default function AppRoutes() {
 
         <Route path="/" element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
-            <Route path="work" />
+            {protectedRoutePaths.map((route, i) => (
+              <Route key={i} path={route.path} element={route.element} />
+            ))}
           </Route>
         </Route>
 

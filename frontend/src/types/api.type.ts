@@ -1,8 +1,8 @@
-// import {
-//   PermissionType,
-//   TaskPriorityEnumType,
-//   TaskStatusEnumType,
-// } from "@/constant";
+import {
+  PermissionType,
+  TaskPriorityEnumType,
+  TaskStatusEnumType,
+} from "@/constant";
 
 export type loginType = { email: string; password: string };
 export type LoginResponseType = {
@@ -75,25 +75,25 @@ export type AllWorkspaceResponseType = {
   workspace: WorkspaceType[];
 };
 
-// export type WorkspaceWithMembersType = WorkspaceType & {
-//   members: {
-//     _id: string;
-//     userId: string;
-//     workspaceId: string;
-//     role: {
-//       _id: string;
-//       name: string;
-//       permissions: PermissionType[];
-//     };
-//     joinedAt: string;
-//     createdAt: string;
-//   }[];
-// };
+export type WorkspaceWithMembersType = WorkspaceType & {
+  members: {
+    _id: string;
+    userId: string;
+    workspaceId: string;
+    role: {
+      _id: string;
+      name: string;
+      permissions: PermissionType[];
+    };
+    joinedAt: string;
+    createdAt: string;
+  }[];
+};
 
-// export type WorkspaceByIdResponseType = {
-//   message: string;
-//   workspace: WorkspaceWithMembersType;
-// };
+export type WorkspaceByIdResponseType = {
+  message: string;
+  workspace: WorkspaceWithMembersType;
+};
 
 export type ChangeWorkspaceMemberRoleType = {
   workspaceId: string;
@@ -213,56 +213,56 @@ export type ProjectByIdPayloadType = {
 //********** */ TASK TYPES ************************
 //************************************************* */
 
-// export type CreateTaskPayloadType = {
-//   workspaceId: string;
-//   projectId: string;
-//   data: {
-//     title: string;
-//     description: string;
-//     priority: TaskPriorityEnumType;
-//     status: TaskStatusEnumType;
-//     assignedTo: string;
-//     dueDate: string;
-//   };
-// };
+export type CreateTaskPayloadType = {
+  workspaceId: string;
+  projectId: string;
+  data: {
+    title: string;
+    description: string;
+    priority: TaskPriorityEnumType;
+    status: TaskStatusEnumType;
+    assignedTo: string;
+    dueDate: string;
+  };
+};
 
-// export type TaskType = {
-//   _id: string;
-//   title: string;
-//   description?: string;
-//   project?: {
-//     _id: string;
-//     emoji: string;
-//     name: string;
-//   };
-//   priority: TaskPriorityEnumType;
-//   status: TaskStatusEnumType;
-//   assignedTo: {
-//     _id: string;
-//     name: string;
-//     profilePicture: string | null;
-//   } | null;
-//   createdBy?: string;
-//   dueDate: string;
-//   taskCode: string;
-//   createdAt?: string;
-//   updatedAt?: string;
-// };
+export type TaskType = {
+  _id: string;
+  title: string;
+  description?: string;
+  project?: {
+    _id: string;
+    emoji: string;
+    name: string;
+  };
+  priority: TaskPriorityEnumType;
+  status: TaskStatusEnumType;
+  assignedTo: {
+    _id: string;
+    name: string;
+    profilePicture: string | null;
+  } | null;
+  createdBy?: string;
+  dueDate: string;
+  taskCode: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
 
-// export type AllTaskPayloadType = {
-//   workspaceId: string;
-//   projectId?: string | null;
-//   keyword?: string | null;
-//   priority?: TaskPriorityEnumType | null;
-//   status?: TaskStatusEnumType | null;
-//   assignedTo?: string | null;
-//   dueDate?: string | null;
-//   pageNumber?: number | null;
-//   pageSize?: number | null;
-// };
+export type AllTaskPayloadType = {
+  workspaceId: string;
+  projectId?: string | null;
+  keyword?: string | null;
+  priority?: TaskPriorityEnumType | null;
+  status?: TaskStatusEnumType | null;
+  assignedTo?: string | null;
+  dueDate?: string | null;
+  pageNumber?: number | null;
+  pageSize?: number | null;
+};
 
-// export type AllTaskResponseType = {
-//   message: string;
-//   tasks: TaskType[];
-//   pagination: PaginationType;
-// };
+export type AllTaskResponseType = {
+  message: string;
+  tasks: TaskType[];
+  pagination: PaginationType;
+};
