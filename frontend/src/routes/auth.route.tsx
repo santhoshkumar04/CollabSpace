@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/use-auth";
+import useAuth from "@/hooks/api/use-auth";
 import { Navigate, Outlet, useLocation } from "react-router";
 import { isAuthRoute } from "./common/routePaths";
 
@@ -12,6 +12,7 @@ export default function AuthRoute() {
 
   if (isLoading && !_isAuthRoute) return <p>Loading...</p>;
 
+  // if (!user) return <Navigate to="auth/sign-in" replace />;
   if (!user) return <Outlet />;
 
   return <Navigate to={`workspace/${user.currentWorkspace?._id}`} replace />;

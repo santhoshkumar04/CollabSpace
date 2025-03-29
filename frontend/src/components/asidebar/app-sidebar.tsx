@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   CircleCheckBig,
-  Command,
   Frame,
   LayoutDashboard,
   LifeBuoy,
@@ -22,17 +21,11 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useAuthContext } from "@/context/auth-provider";
+import SwitchWorkspace from "./switch-workspace";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -153,23 +146,12 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuthContext();
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SwitchWorkspace />
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>

@@ -1,6 +1,6 @@
 import { PermissionType } from "@/constant";
-import useAuth from "@/hooks/use-auth";
-import useGetWorkspaceQuery from "@/hooks/use-get-workspace";
+import useAuth from "@/hooks/api/use-auth";
+import useGetWorkspaceQuery from "@/hooks/api/use-get-workspace";
 import usePermissions from "@/hooks/use-permissions";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import { UserType, WorkspaceType } from "@/types/api.type";

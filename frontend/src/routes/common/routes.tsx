@@ -7,10 +7,12 @@ import Members from "@/page/workspace/Members";
 import Settings from "@/page/workspace/Settings";
 import ProjectDetails from "@/page/workspace/ProjectDetails";
 import InviteUser from "@/page/invite/InviteUser";
+import GoogleOAuthFailure from "../../page/auth/GoogleOAuthFailure";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
   { path: AUTH_ROUTES.SIGN_UP, element: <SignUp /> },
+  { path: AUTH_ROUTES.GOOGLE_OAUTH_CALLBACK, element: <GoogleOAuthFailure /> },
 ];
 
 export const protectedRoutePaths = [
