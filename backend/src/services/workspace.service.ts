@@ -132,7 +132,7 @@ export const changeMemberRoleService = async (
     throw new NotFoundException("Workspace not found");
   }
 
-  const role = await RoleModel.findById(workspaceId);
+  const role = await RoleModel.findById(roleId);
   if (!role) {
     throw new NotFoundException("Role not found");
   }

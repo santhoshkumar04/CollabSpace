@@ -1,7 +1,11 @@
 import { error } from "console";
 import MemberModel from "../models/member.model";
 import WorkspaceModel from "../models/workspace.model";
-import { NotFoundException, UnauthorizedException } from "../utils/appError";
+import {
+  BadRequestException,
+  NotFoundException,
+  UnauthorizedException,
+} from "../utils/appError";
 import { ErrorCodeEnum } from "../enums/error-code.enum";
 import RoleModel from "../models/roles-permission.model";
 import { Roles } from "../enums/role.enum";
@@ -38,15 +42,19 @@ export const joinWorkspaceByInviteService = async (
   inviteCode: string
 ) => {
   // Find workspace by invite code
-  const workspace = await WorkspaceModel.findOne({ inviteCode });
+  const workspace = await WorkspaceModel.findOne({ inviteCode }).exec();
   if (!workspace) {
     throw new NotFoundException("Invalid invite code or workspace not found");
   }
 
-  //   Check if the user is already a member
-  const existingMember = await MemberModel.findOne({ userId });
+  // Check if user is already a member
+  const existingMember = await MemberModel.findOne({
+    userId,
+    workspaceId: workspace._id,
+  }).exec();
+
   if (existingMember) {
-    throw new NotFoundException("You are already member of this workspace");
+    throw new BadRequestException("You are already a member of this workspace");
   }
 
   const role = await RoleModel.findOne({ name: Roles.MEMBER });
