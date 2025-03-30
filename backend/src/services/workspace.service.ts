@@ -66,13 +66,13 @@ export const getWorkspaceByIdService = async (workspaceId: string) => {
     throw new NotFoundException("Workspace not found");
   }
 
-  const member = await MemberModel.find({
+  const members = await MemberModel.find({
     workspaceId,
   }).populate("role");
 
   const workspaceWithMember = {
     ...workspace.toObject(),
-    member,
+    members,
   };
 
   return {
