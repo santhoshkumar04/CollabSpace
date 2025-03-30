@@ -26,9 +26,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { UserType } from "@/types/api.type";
-import { getNameInitial } from "@/utils/utils";
 import LogoutDialog from "./logout-dialog";
 import { useState } from "react";
+import { getAvatarFallbackText } from "@/utils/helper";
 
 export function NavUser({ user }: { user: UserType }) {
   const { isMobile } = useSidebar();
@@ -49,8 +49,8 @@ export function NavUser({ user }: { user: UserType }) {
                     src={user.profilePicture || ""}
                     alt={user.name}
                   />
-                  <AvatarFallback className="rounded-lg">
-                    {getNameInitial(user?.name)}
+                  <AvatarFallback className="rounded-lg font-semibold">
+                    {getAvatarFallbackText(user?.name)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -73,8 +73,8 @@ export function NavUser({ user }: { user: UserType }) {
                       src={user.profilePicture || ""}
                       alt={user.name}
                     />
-                    <AvatarFallback className="rounded-lg">
-                      {getNameInitial(user?.name)}
+                    <AvatarFallback className="rounded-lg font-semibold">
+                      {getAvatarFallbackText(user?.name)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">

@@ -13,8 +13,9 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import AuthProvider from "@/context/auth-provider";
 import { Separator } from "@radix-ui/react-separator";
+import CreateWorkspaceDialog from "@/components/workspace/create-workspace-dialog";
+import { AuthProvider } from "@/context/auth-provider";
 
 export default function AppLayout() {
   return (
@@ -50,6 +51,7 @@ export default function AppLayout() {
             <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
             <Outlet />
           </div>
+          <CreateWorkspaceDialog />
         </SidebarInset>
       </SidebarProvider>
     </AuthProvider>

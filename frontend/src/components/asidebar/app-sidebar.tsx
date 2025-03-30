@@ -24,128 +24,119 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuthContext } from "@/context/auth-provider";
 import SwitchWorkspace from "./switch-workspace";
-
-const data = {
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/workspace/:workspaceId",
-      icon: LayoutDashboard,
-      isActive: false,
-      // items: [
-      //   {
-      //     title: "History",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Starred",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Settings",
-      //     url: "#",
-      //   },
-      // ],
-    },
-    {
-      title: "Task",
-      url: "/workspace/:workspaceId/tasks",
-      icon: CircleCheckBig,
-      // items: [
-      //   {
-      //     title: "Genesis",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Explorer",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Quantum",
-      //     url: "#",
-      //   },
-      // ],
-    },
-    {
-      title: "Member",
-      url: "/workspace/:workspaceId/members",
-      icon: UsersRound,
-      // items: [
-      //   {
-      //     title: "Introduction",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Get Started",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Tutorials",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Changelog",
-      //     url: "#",
-      //   },
-      // ],
-    },
-    {
-      title: "Settings",
-      url: "/workspace/:workspaceId/settings",
-      icon: Settings,
-      // items: [
-      //   {
-      //     title: "General",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Team",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Billing",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Limits",
-      //     url: "#",
-      //   },
-      // ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+import { Permissions } from "@/constant";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useAuthContext();
+  const { user, hasPermission } = useAuthContext();
+
+  const canManageSettings = hasPermission(
+    Permissions.MANAGE_WORKSPACE_SETTINGS
+  );
+
+  const data = {
+    navMain: [
+      {
+        title: "Dashboard",
+        url: "/workspace/:workspaceId",
+        icon: LayoutDashboard,
+        isActive: false,
+        // items: [
+        //   {
+        //     title: "History",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Starred",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Settings",
+        //     url: "#",
+        //   },
+        // ],
+      },
+      {
+        title: "Task",
+        url: "/workspace/:workspaceId/tasks",
+        icon: CircleCheckBig,
+        // items: [
+        //   {
+        //     title: "Genesis",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Explorer",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Quantum",
+        //     url: "#",
+        //   },
+        // ],
+      },
+      {
+        title: "Member",
+        url: "/workspace/:workspaceId/members",
+        icon: UsersRound,
+        // items: [
+        //   {
+        //     title: "Introduction",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Get Started",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Tutorials",
+        //     url: "#",
+        //   },
+        //   {
+        //     title: "Changelog",
+        //     url: "#",
+        //   },
+        // ],
+      },
+      ...(canManageSettings
+        ? [
+            {
+              title: "Settings",
+              url: "/workspace/:workspaceId/settings",
+              icon: Settings,
+            },
+          ]
+        : []),
+    ],
+    navSecondary: [
+      {
+        title: "Support",
+        url: "#",
+        icon: LifeBuoy,
+      },
+      {
+        title: "Feedback",
+        url: "#",
+        icon: Send,
+      },
+    ],
+    projects: [
+      {
+        name: "Design Engineering",
+        url: "#",
+        icon: Frame,
+      },
+      {
+        name: "Sales & Marketing",
+        url: "#",
+        icon: PieChart,
+      },
+      {
+        name: "Travel",
+        url: "#",
+        icon: Map,
+      },
+    ],
+  };
 
   return (
     <Sidebar variant="inset" {...props}>

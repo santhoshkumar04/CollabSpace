@@ -8,11 +8,9 @@ export default function usePermissions(
 ) {
   const [permissions, setPermissions] = useState<PermissionType[]>([]);
 
-  console.log(user, workspace, "up there");
-
   useEffect(() => {
-    if (user && workspace && Array.isArray(workspace.members)) {
-      const member = workspace.members.find(
+    if (user && workspace) {
+      const member = workspace.members?.find(
         (member) => member.userId === user._id
       );
       if (member) {
@@ -20,8 +18,6 @@ export default function usePermissions(
       }
     }
   }, [user, workspace]);
-
-  console.log(user, workspace);
 
   return useMemo(() => permissions, [permissions]);
 }

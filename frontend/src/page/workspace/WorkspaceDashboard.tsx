@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import WorkspaceAnalytics from "@/components/workspace/workspace-analytics";
 import useCreateProjectDialog from "@/hooks/use-create-project-dialog";
 import { Plus } from "lucide-react";
 
@@ -21,7 +22,7 @@ export default function WorkspaceDashboard() {
           New Project
         </Button>
       </div>
-      {/* <WorkspaceAnalytics /> */}
+      <WorkspaceAnalytics />
       <div className="mt-4">
         <Tabs defaultValue="projects" className="w-full border rounded-lg p-2">
           <TabsList className="w-full justify-start border-0 bg-gray-50 px-1 h-12">

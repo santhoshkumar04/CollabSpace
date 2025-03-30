@@ -9,16 +9,20 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
-import { ChevronsUpDown, Loader, Plus } from "lucide-react";
+import { Check, ChevronsUpDown, Loader, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllWorkspacesUserIsMemberQueryFn } from "@/lib/api";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import { useNavigate } from "react-router";
 import { WorkspaceType } from "@/types/api.type";
+import useCreateWorkspaceDialog from "@/hooks/use-create-workspace-dialog";
+import PermissionGuard from "../resuable/permission-guard";
+import { Permissions } from "@/constant";
 
 export default function SwitchWorkspace() {
   const [activeWorkspace, setActiveWorkspace] = useState<WorkspaceType>();
   const { isMobile } = useSidebar();
+  const { onOpen } = useCreateWorkspaceDialog();
   const workspaceId = useWorkspaceId();
   const navigate = useNavigate();
 
@@ -30,8 +34,6 @@ export default function SwitchWorkspace() {
   });
 
   const workspaces = data?.workspace;
-
-  console.log(workspaces, "workspaces");
 
   useEffect(() => {
     if (workspaces?.length) {
@@ -63,7 +65,12 @@ export default function SwitchWorkspace() {
               >
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   {/* <activeWorkspace.logo className="size-4" /> */}
-                  {activeWorkspace?.name.split(" ")?.[0]?.charAt(0)}
+                  <p className="text-lg ">
+                    {activeWorkspace?.name
+                      .split(" ")?.[0]
+                      ?.charAt(0)
+                      .toLocaleUpperCase()}
+                  </p>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
@@ -84,7 +91,7 @@ export default function SwitchWorkspace() {
                 Teams
               </DropdownMenuLabel>
               {isPending ? <Loader className=" w-5 h-5 animate-spin" /> : null}
-              {workspaces?.map((workspace, index) => (
+              {workspaces?.map((workspace) => (
                 <DropdownMenuItem
                   key={workspace._id}
                   onClick={() => handleOnSwitchWorkspace(workspace)}
@@ -92,21 +99,32 @@ export default function SwitchWorkspace() {
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
                     {/* <team.logo className="size-4 shrink-0" /> */}
-                    {workspace?.name?.split(" ")?.[0].charAt(0)}
+                    {workspace?.name
+                      ?.split(" ")?.[0]
+                      .charAt(0)
+                      .toLocaleUpperCase()}
                   </div>
                   {workspace.name}
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                  {workspace._id === workspaceId && (
+                    <DropdownMenuShortcut className="tracking-normal !opacity-100">
+                      <Check className="w-4 h-4" />
+                    </DropdownMenuShortcut>
+                  )}
                 </DropdownMenuItem>
               ))}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="gap-2 p-2">
-                <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-                  <Plus className="size-4" />
-                </div>
-                <div className="font-medium text-muted-foreground">
-                  Add team
-                </div>
-              </DropdownMenuItem>
+              <PermissionGuard
+                requiredPermission={Permissions.CREATE_WORKSPACE}
+              >
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={onOpen} className="gap-2 p-2">
+                  <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+                    <Plus className="size-4" />
+                  </div>
+                  <div className="font-medium text-muted-foreground">
+                    Add team
+                  </div>
+                </DropdownMenuItem>
+              </PermissionGuard>
             </DropdownMenuContent>
           </DropdownMenu>
         </SidebarMenuButton>
