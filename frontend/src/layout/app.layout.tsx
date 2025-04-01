@@ -16,6 +16,7 @@ import {
 import { Separator } from "@radix-ui/react-separator";
 import CreateWorkspaceDialog from "@/components/workspace/create-workspace-dialog";
 import { AuthProvider } from "@/context/auth-provider";
+import CreateProjectDialog from "@/components/workspace/project/create-project-dialog";
 
 export default function AppLayout() {
   return (
@@ -52,6 +53,7 @@ export default function AppLayout() {
             <Outlet />
           </div>
           <CreateWorkspaceDialog />
+          <CreateProjectDialog />
         </SidebarInset>
       </SidebarProvider>
     </AuthProvider>

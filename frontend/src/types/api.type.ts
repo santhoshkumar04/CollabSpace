@@ -72,7 +72,7 @@ export type CreateWorkspaceResponseType = {
 
 export type AllWorkspaceResponseType = {
   message: string;
-  workspace: WorkspaceType[];
+  workspaces: WorkspaceType[];
 };
 
 export type WorkspaceWithMembersType = WorkspaceType & {
