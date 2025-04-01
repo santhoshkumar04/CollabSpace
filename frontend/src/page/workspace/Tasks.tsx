@@ -12,7 +12,6 @@ export default function Tasks() {
           </p>
         </div>
         <CreateTaskDialog />
-        Create TAskDialog
       </div>
       {/* {Task Table} */}
       <div>

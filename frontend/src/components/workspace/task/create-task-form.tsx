@@ -110,11 +110,7 @@ export default function CreateTaskForm(props: {
         <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
           <div>
             <Label className="dark:text-[#f1f7feb5] text-sm">Task title</Label>
-            <Input
-              placeholder="Website Redesign"
-              className="!h-[48px]"
-              {...form.register("title")}
-            />
+            <Input placeholder="Website Redesign" {...form.register("title")} />
           </div>
 
           {/* {Description} */}
@@ -124,7 +120,7 @@ export default function CreateTaskForm(props: {
               <span className="text-xs font-extralight ml-2">Optional</span>
             </Label>
             <Textarea
-              rows={1}
+              rows={3}
               placeholder="Description"
               {...form.register("description")}
             />
@@ -137,7 +133,7 @@ export default function CreateTaskForm(props: {
               <Label>Project</Label>
               <Select
                 {...form.register("projectId")}
-                onValueChange={(value) => form.setValue(value)}
+                // onValueChange={(value) => form.setValue(value)}
                 // defaultValue={field.value}
               >
                 <SelectTrigger>
@@ -166,7 +162,7 @@ export default function CreateTaskForm(props: {
             <Label>Assigned To</Label>
             <Select
               {...form.register("assignedTo")}
-              onValueChange={(value) => form.setValue(value)}
+              // onValueChange={(value) => form.setValue(value)}
               // defaultValue={field.value}
             >
               <SelectTrigger>
@@ -192,11 +188,11 @@ export default function CreateTaskForm(props: {
                   variant={"outline"}
                   className={cn(
                     "w-full flex-1 pl-3 text-left font-normal",
-                    !field.value && "text-muted-foreground"
+                    !form.formState.defaultValues && "text-muted-foreground"
                   )}
                 >
-                  {field.value ? (
-                    format(field.value, "PPP")
+                  {form.formState?.defaultValues?.dueDate ? (
+                    format(form.formState?.defaultValues?.dueDate, "PPP")
                   ) : (
                     <span>Pick a date</span>
                   )}
@@ -206,8 +202,8 @@ export default function CreateTaskForm(props: {
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
-                  selected={field.value}
-                  onSelect={field.onChange}
+                  selected={form.formState?.defaultValues?.dueDate}
+                  onSelect={(date) => form.setValue("dueDate", date || "")}
                   disabled={
                     (date) =>
                       date < new Date(new Date().setHours(0, 0, 0, 0)) || // Disable past dates
