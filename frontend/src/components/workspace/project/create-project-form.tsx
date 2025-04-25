@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { DialogTitle } from "@/components/ui/dialog";
 import useWorkspaceId from "@/hooks/use-workspace-id";
 import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProjectMutationFn } from "@/lib/api";
 import { toast } from "@/hooks/use-toast";
 import { Loader } from "lucide-react";
@@ -30,7 +30,7 @@ export default function CreateProjectForm({
   const emoji = "";
   const workspaceId = useWorkspaceId();
   const navigate = useNavigate();
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createProjectMutationFn,
@@ -64,6 +64,9 @@ export default function CreateProjectForm({
     mutate(payload, {
       onSuccess: (data) => {
         const project = data.project;
+        queryClient.invalidateQueries({
+          queryKey: ["allprojects", project],
+        });
         toast({
           title: "Project created",
           description: "Project created successfully",

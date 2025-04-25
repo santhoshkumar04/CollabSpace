@@ -19,6 +19,8 @@ export const createTaskService = async (
 ) => {
   const { title, description, priority, status, assignedTo, dueDate } = body;
 
+  console.log(assignedTo, "---------------tetsi----------");
+
   const project = await ProjectModel.findById(projectId);
 
   if (!project || project.workspace.toString() !== workspaceId.toString()) {
