@@ -1,5 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getAvatarColor } from "@/lib/helper";
+import useWorkspaceId from "@/hooks/use-workspace-id";
+import { getAllTasksQueryFn } from "@/lib/api";
+import { getAvatarColor } from "@/utils/helper";
+import { useQuery } from "@tanstack/react-query";
 
 const RecentMembers = () => {
   const members = [
@@ -70,7 +73,6 @@ const RecentMembers = () => {
                 <AvatarFallback
                   className={`${getAvatarColor(member.initials)}`}
                 >
-                  {" "}
                   {member.initials}
                 </AvatarFallback>
               </Avatar>

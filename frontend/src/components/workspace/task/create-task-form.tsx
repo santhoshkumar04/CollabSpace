@@ -34,6 +34,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTaskMutationFn } from "@/lib/api";
 import { toast } from "@/hooks/use-toast";
+import { DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 export default function CreateTaskForm(props: {
   projectId?: string;
@@ -149,7 +150,9 @@ export default function CreateTaskForm(props: {
         queryClient.invalidateQueries({
           queryKey: ["project-analytics", projectId],
         });
-
+        queryClient.invalidateQueries({
+          queryKey: ["all-tasks", workspaceId],
+        });
         toast({
           title: "Success",
           description: "Task created successfully",
@@ -173,15 +176,15 @@ export default function CreateTaskForm(props: {
     <div className="w-full h-auto max-w-full">
       <div className="h-full">
         <div className="mb-5 pb-2 border-b">
-          <h1
+          <DialogTitle
             className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-semibold mb-1
            text-center sm:text-left"
           >
             Create Task
-          </h1>
-          <p className="text-muted-foreground text-sm leading-tight">
+          </DialogTitle>
+          <DialogDescription className="text-muted-foreground text-sm leading-tight">
             Organize and manage tasks, resources, and team collaboration
-          </p>
+          </DialogDescription>
         </div>
         <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
           <div>

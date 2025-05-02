@@ -26,12 +26,12 @@ export default function WorkspaceAnalytics() {
       <AnalyticsCard
         isLoading={isPending}
         title={"Overdue task"}
-        value={analytics?.totalTasks || 0}
+        value={analytics?.overdueTasks || 0}
       />
       <AnalyticsCard
         isLoading={isPending}
         title={"Completed task"}
-        value={analytics?.totalTasks || 0}
+        value={analytics?.completedTasks || 0}
       />
     </div>
   );

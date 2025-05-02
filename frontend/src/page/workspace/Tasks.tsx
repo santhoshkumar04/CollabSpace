@@ -16,7 +16,6 @@ export default function Tasks() {
       {/* {Task Table} */}
       <div>
         <TaskTable />
-        TaskTable
       </div>
     </div>
   );
